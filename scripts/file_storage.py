@@ -1,79 +1,56 @@
 import os
-import shutil
-
-from config.config import STORAGE_PATH
+from config import STORAGE_PATH
 from scripts.logger import logger
 
 
 def create_storage():
-    """Create the uploads folder if it doesn't exist."""
     os.makedirs(STORAGE_PATH, exist_ok=True)
-    logger.info("Storage folder ready.")
+    logger.info("Storage directory checked: %s", STORAGE_PATH)
 
 
 def upload_file(source_path):
-    """
-    Copy a file from the user's computer into storage.
-    """
-
-    if not os.path.exists(source_path):
-        raise FileNotFoundError("File not found.")
+    if not os.path.isfile(source_path):
+        raise FileNotFoundError(f"File not found: {source_path}")
 
     filename = os.path.basename(source_path)
-
     destination = os.path.join(STORAGE_PATH, filename)
 
-    shutil.copy(source_path, destination)
+    with open(source_path, "rb") as source:
+        with open(destination, "wb") as target:
+            target.write(source.read())
 
-    logger.info("Copied %s into storage.", filename)
-
-    return filename
+    logger.info("Uploaded file: %s", filename)
 
 
 def list_files():
-    """Display every stored file."""
+    create_storage()
 
     files = os.listdir(STORAGE_PATH)
+    logger.info("Listed files")
 
-    if not files:
-        print("Storage is empty.")
-        logger.info("Storage is empty.")
-        return
-
-    print("\nStored Files")
-
-    for file in files:
-        print(f"- {file}")
-
-    logger.info("Listed all stored files.")
+    return files
 
 
 def read_file(filename):
-    """Display the contents of a stored file."""
+    filepath = os.path.join(STORAGE_PATH, filename)
 
-    file_path = os.path.join(STORAGE_PATH, filename)
+    if not os.path.isfile(filepath):
+        raise FileNotFoundError(f"File not found: {filename}")
 
-    if not os.path.exists(file_path):
-        raise FileNotFoundError("File not found.")
+    with open(filepath, "r", encoding="utf-8") as file:
+        content = file.read()
 
-    logger.info("Opening file %s.", filename)
+    logger.info("Read file: %s", filename)
 
-    with open(file_path, "r") as file:
-        print("\n----- File Contents -----")
-        print(file.read())
-        print("-------------------------")
+    return content
 
 
 def delete_file(filename):
-    """Delete a stored file."""
+    filepath = os.path.join(STORAGE_PATH, filename)
 
-    file_path = os.path.join(STORAGE_PATH, filename)
+    if not os.path.isfile(filepath):
+        raise FileNotFoundError(f"File not found: {filename}")
 
-    if not os.path.exists(file_path):
-        raise FileNotFoundError("File not found.")
+    os.remove(filepath)
 
-    os.remove(file_path)
-
-    logger.info("Deleted %s from storage.", filename)
-
-    return filename
+    logger.info("Deleted file: %s", filename)

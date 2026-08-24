@@ -1,70 +1,72 @@
 # Cloud Automation Platform
 
-A beginner cloud automation project built with Python on Linux. This application allows users to create, view, search, and store notes inside a text file. The project was developed to practice Python programming, Linux commands, file handling, and cloud engineering concepts.
+## Overview
+
+Cloud Automation Platform is a Python-based file management
+application designed to demonstrate application development,
+file storage, logging, testing, Linux deployment, and cloud
+infrastructure.
+
+The application allows users to upload, list, read, and delete
+files.
+
+The project begins as a local Python application and is deployed
+to AWS as part of the final implementation.
+
+---
 
 ## Features
 
-- Add new notes
-- View all saved notes
-- Search for a note
-- Store notes in a text file
-- Menu-driven interface
-- Input validation
+- Upload files
+- List stored files
+- Read files
+- Delete files
+- File error handling
+- Application logging
+- Unit testing
+- Linux deployment
+- Cloud-based file storage
+- AWS infrastructure
 
-## Technologies Used
+---
 
-- Python 3
+## Technologies
+
+- Python
 - Linux
-- Visual Studio Code
-- Git & GitHub
+- Git
+- GitHub
+- Amazon EC2
+- Amazon S3
+- Amazon CloudWatch
+- AWS IAM
+- Boto3
+
+---
 
 ## Project Structure
 
-```
-CloudAutomationPlatform/
+```text
+cloud-automation-platform/
 │
 ├── main.py
-├── notes.txt
-└── README.md
-```
-
-## How to Run
-
-Clone the repository.
-
-```
-git clone <repository-url>
-```
-
-Move into the project folder.
-
-```
-cd CloudAutomationPlatform
-```
-
-Run the program.
-
-```
-python3 main.py
-```
-
-## What I Learned
-
-This project helped me practice:
-
-- Python functions
-- Loops and conditionals
-- Lists
-- File handling
-- Reading and writing files
-- User input validation
-- Linux terminal commands
-- Git version control
-
-## Future Improvements
-
-- Delete notes
-- Edit notes
-- Save notes with timestamps
-- Export notes
-- Store notes in a database
+├── config.py
+├── requirements.txt
+├── README.md
+├── Architecture.md
+├── .gitignore
+│
+├── scripts/
+│   ├── __init__.py
+│   ├── file_storage.py
+│   └── logger.py
+│
+├── tests/
+│   ├── __init__.py
+│   └── test_file_storage.py
+│
+├── data/
+│   └── uploads/
+│
+└── logs/
+    └── app.log

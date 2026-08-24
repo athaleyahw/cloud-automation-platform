@@ -1,15 +1,17 @@
 import logging
+import os
 
-from config.config import (
-    LOG_FILE,
-    LOG_LEVEL,
-    LOG_FORMAT,
-)
+from config import LOG_PATH
+
+
+os.makedirs(os.path.dirname(LOG_PATH), exist_ok=True)
+
 
 logging.basicConfig(
-    filename=LOG_FILE,
-    level=getattr(logging, LOG_LEVEL),
-    format=LOG_FORMAT,
+    filename=LOG_PATH,
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s"
 )
+
 
 logger = logging.getLogger(__name__)
